@@ -9,7 +9,8 @@
     "start": "webpack-dev-server --hot --inline",
     "prebuild": "rimraf dist",
     "build": "webpack",
-    "reinstall": "npm i rimraf && rimraf node_modules && npm uninstall -g elm && npm i -g elm && npm i && elm package install"
+    "reinstall": "npm i rimraf && rimraf node_modules && npm uninstall -g elm && npm i -g elm && npm i && elm package install",
+    "api": "graphqelm http://localhost:3000/graphql --base CrossfitHistory"
   },
   "devDependencies": {
     "autoprefixer": "^8.0.0",
@@ -23,6 +24,7 @@
     "eslint-loader": "^1.9.0",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.6",
+    "graphqelm": "^3.1.4",
     "html-webpack-plugin": "^2.30.1",
     "node-sass": "^4.7.2",
     "postcss-loader": "^2.1.0",
@@ -35,5 +37,5 @@
     "webpack-merge": "^4.1.1"
   },
   "main": "index.js",
-  "dependencies": { }
+  "dependencies": {}
 }
