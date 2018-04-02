@@ -40,6 +40,11 @@ primary =
     Object.fieldDecoder "primary" [] Decode.string
 
 
+primary_modifiers : SelectionSet decodesTo CrossfitHistory.Object.Movement -> Field (List decodesTo) CrossfitHistory.Object.Workout
+primary_modifiers object =
+    Object.selectionField "primary_modifiers" [] object (identity >> Decode.list)
+
+
 primary_movements : SelectionSet decodesTo CrossfitHistory.Object.Movement -> Field (List decodesTo) CrossfitHistory.Object.Workout
 primary_movements object =
     Object.selectionField "primary_movements" [] object (identity >> Decode.list)
@@ -53,6 +58,11 @@ score =
 secondary : Field (Maybe String) CrossfitHistory.Object.Workout
 secondary =
     Object.fieldDecoder "secondary" [] (Decode.string |> Decode.nullable)
+
+
+secondary_modifiers : SelectionSet decodesTo CrossfitHistory.Object.Movement -> Field (List decodesTo) CrossfitHistory.Object.Workout
+secondary_modifiers object =
+    Object.selectionField "secondary_modifiers" [] object (identity >> Decode.list)
 
 
 secondary_movements : SelectionSet decodesTo CrossfitHistory.Object.Movement -> Field (List decodesTo) CrossfitHistory.Object.Workout

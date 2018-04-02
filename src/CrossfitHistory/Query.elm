@@ -28,6 +28,11 @@ selection constructor =
     Object.selection constructor
 
 
+movements : SelectionSet decodesTo CrossfitHistory.Object.Movement -> Field (List decodesTo) RootQuery
+movements object =
+    Object.selectionField "movements" [] object (identity >> Decode.list)
+
+
 type alias PrimaryMovementsOptionalArguments =
     { matching : OptionalArgument (List (Maybe CrossfitHistory.Enum.MovementType.MovementType)) }
 
@@ -63,17 +68,17 @@ secondary_movements fillInOptionals object =
 
 
 type alias WorkoutsOptionalArguments =
-    { movement : OptionalArgument CrossfitHistory.Enum.MovementType.MovementType, movements : OptionalArgument (List (Maybe CrossfitHistory.Enum.MovementType.MovementType)), all_movements : OptionalArgument (List (Maybe CrossfitHistory.Enum.MovementType.MovementType)), aerobic : OptionalArgument Bool, participated : OptionalArgument Bool }
+    { movement : OptionalArgument CrossfitHistory.Enum.MovementType.MovementType, movements : OptionalArgument (List (Maybe CrossfitHistory.Enum.MovementType.MovementType)), all_movements : OptionalArgument (List (Maybe CrossfitHistory.Enum.MovementType.MovementType)), primary_movements : OptionalArgument (List (Maybe CrossfitHistory.Enum.MovementType.MovementType)), secondary_movements : OptionalArgument (List (Maybe CrossfitHistory.Enum.MovementType.MovementType)), aerobic : OptionalArgument Bool, participated : OptionalArgument Bool }
 
 
 workouts : (WorkoutsOptionalArguments -> WorkoutsOptionalArguments) -> SelectionSet decodesTo CrossfitHistory.Object.Workout -> Field (List decodesTo) RootQuery
 workouts fillInOptionals object =
     let
         filledInOptionals =
-            fillInOptionals { movement = Absent, movements = Absent, all_movements = Absent, aerobic = Absent, participated = Absent }
+            fillInOptionals { movement = Absent, movements = Absent, all_movements = Absent, primary_movements = Absent, secondary_movements = Absent, aerobic = Absent, participated = Absent }
 
         optionalArgs =
-            [ Argument.optional "movement" filledInOptionals.movement (Encode.enum CrossfitHistory.Enum.MovementType.toString), Argument.optional "movements" filledInOptionals.movements (Encode.enum CrossfitHistory.Enum.MovementType.toString |> Encode.maybe |> Encode.list), Argument.optional "all_movements" filledInOptionals.all_movements (Encode.enum CrossfitHistory.Enum.MovementType.toString |> Encode.maybe |> Encode.list), Argument.optional "aerobic" filledInOptionals.aerobic Encode.bool, Argument.optional "participated" filledInOptionals.participated Encode.bool ]
+            [ Argument.optional "movement" filledInOptionals.movement (Encode.enum CrossfitHistory.Enum.MovementType.toString), Argument.optional "movements" filledInOptionals.movements (Encode.enum CrossfitHistory.Enum.MovementType.toString |> Encode.maybe |> Encode.list), Argument.optional "all_movements" filledInOptionals.all_movements (Encode.enum CrossfitHistory.Enum.MovementType.toString |> Encode.maybe |> Encode.list), Argument.optional "primary_movements" filledInOptionals.primary_movements (Encode.enum CrossfitHistory.Enum.MovementType.toString |> Encode.maybe |> Encode.list), Argument.optional "secondary_movements" filledInOptionals.secondary_movements (Encode.enum CrossfitHistory.Enum.MovementType.toString |> Encode.maybe |> Encode.list), Argument.optional "aerobic" filledInOptionals.aerobic Encode.bool, Argument.optional "participated" filledInOptionals.participated Encode.bool ]
                 |> List.filterMap identity
     in
     Object.selectionField "workouts" optionalArgs object (identity >> Decode.list)

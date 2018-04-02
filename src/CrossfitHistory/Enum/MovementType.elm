@@ -10,10 +10,7 @@ import Json.Decode as Decode exposing (Decoder)
 {-| The groups for movements
 -}
 type MovementType
-    = Amrap
-    | Cluster
-    | Unbroken
-    | Jerk
+    = Jerk
     | PowerClean
     | SquatClean
     | HangPowerClean
@@ -77,6 +74,9 @@ type MovementType
     | Ttb
     | DiamondPushUp
     | PushUp
+    | Amrap
+    | Cluster
+    | Unbroken
 
 
 decoder : Decoder MovementType
@@ -85,15 +85,6 @@ decoder =
         |> Decode.andThen
             (\string ->
                 case string of
-                    "AMRAP" ->
-                        Decode.succeed Amrap
-
-                    "CLUSTER" ->
-                        Decode.succeed Cluster
-
-                    "UNBROKEN" ->
-                        Decode.succeed Unbroken
-
                     "JERK" ->
                         Decode.succeed Jerk
 
@@ -286,6 +277,15 @@ decoder =
                     "PUSH_UP" ->
                         Decode.succeed PushUp
 
+                    "AMRAP" ->
+                        Decode.succeed Amrap
+
+                    "CLUSTER" ->
+                        Decode.succeed Cluster
+
+                    "UNBROKEN" ->
+                        Decode.succeed Unbroken
+
                     _ ->
                         Decode.fail ("Invalid MovementType type, " ++ string ++ " try re-running the graphqelm CLI ")
             )
@@ -296,15 +296,6 @@ decoder =
 toString : MovementType -> String
 toString enum =
     case enum of
-        Amrap ->
-            "AMRAP"
-
-        Cluster ->
-            "CLUSTER"
-
-        Unbroken ->
-            "UNBROKEN"
-
         Jerk ->
             "JERK"
 
@@ -496,3 +487,12 @@ toString enum =
 
         PushUp ->
             "PUSH_UP"
+
+        Amrap ->
+            "AMRAP"
+
+        Cluster ->
+            "CLUSTER"
+
+        Unbroken ->
+            "UNBROKEN"
