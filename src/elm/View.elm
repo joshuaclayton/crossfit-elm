@@ -5,7 +5,7 @@ module View
 
 import Html exposing (..)
 import Model exposing (Model, Msg(..))
-import Page.Workouts as Workouts
+import Page.Workouts.View as Workouts
 
 
 view : Model -> Html Msg

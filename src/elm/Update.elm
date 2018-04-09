@@ -6,7 +6,7 @@ module Update
         )
 
 import Model exposing (Model, Msg(..))
-import Page.Workouts as Workouts
+import Page.Workouts.Update as Workouts
 
 
 subscriptions : Model -> Sub Msg

@@ -4,7 +4,7 @@ module Model
         , Msg(..)
         )
 
-import Page.Workouts as Workouts
+import Page.Workouts.Model as Workouts
 
 
 type alias Model =
